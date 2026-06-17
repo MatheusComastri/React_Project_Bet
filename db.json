@@ -1,0 +1,164 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Administrador Acadêmico",
+      "email": "admin@bet.com",
+      "senha": "123",
+      "perfil": "admin",
+      "saldo": 0,
+      "pontos": 0,
+      "bonusRecebido": true
+    },
+    {
+      "id": 2,
+      "nome": "João Jogador",
+      "email": "joao@bet.com",
+      "senha": "123",
+      "perfil": "usuario",
+      "saldo": 920,
+      "pontos": 145,
+      "bonusRecebido": false
+    },
+    {
+      "id": 3,
+      "nome": "Maria Campeã",
+      "email": "maria@bet.com",
+      "senha": "123",
+      "perfil": "usuario",
+      "saldo": 1280,
+      "pontos": 230,
+      "bonusRecebido": true
+    },
+    {
+      "id": 4,
+      "nome": "Pedro Simulador",
+      "email": "pedro@bet.com",
+      "senha": "123",
+      "perfil": "usuario",
+      "saldo": 760,
+      "pontos": 88,
+      "bonusRecebido": false
+    }
+  ],
+  "eventos": [
+    {
+      "id": 1,
+      "esporte": "Futebol",
+      "timeA": "Brasil",
+      "timeB": "Argentina",
+      "data": "2026-06-20",
+      "hora": "18:00",
+      "status": "aberto",
+      "resultado": "",
+      "oddA": 1.85,
+      "oddEmpate": 3.1,
+      "oddB": 2.2
+    },
+    {
+      "id": 2,
+      "esporte": "Basquete",
+      "timeA": "Lobos",
+      "timeB": "Tigres",
+      "data": "2026-06-22",
+      "hora": "20:30",
+      "status": "aberto",
+      "resultado": "",
+      "oddA": 1.7,
+      "oddEmpate": 3.4,
+      "oddB": 2.45
+    },
+    {
+      "id": 3,
+      "esporte": "Vôlei",
+      "timeA": "Atlética Norte",
+      "timeB": "Atlética Sul",
+      "data": "2026-06-12",
+      "hora": "19:00",
+      "status": "finalizado",
+      "resultado": "casa",
+      "oddA": 1.9,
+      "oddEmpate": 3.2,
+      "oddB": 2.1
+    },
+    {
+      "id": 4,
+      "esporte": "Futsal",
+      "timeA": "Engenharia",
+      "timeB": "Direito",
+      "data": "2026-06-18",
+      "hora": "21:00",
+      "status": "encerrado",
+      "resultado": "",
+      "oddA": 2.05,
+      "oddEmpate": 2.8,
+      "oddB": 2.05
+    }
+  ],
+  "apostas": [
+    {
+      "id": 1,
+      "usuarioId": 2,
+      "eventoId": 3,
+      "palpite": "casa",
+      "valor": 100,
+      "status": "ganhou",
+      "retorno": 190,
+      "data": "2026-06-11T15:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 3,
+      "palpite": "fora",
+      "valor": 80,
+      "status": "perdeu",
+      "retorno": 0,
+      "data": "2026-06-11T16:10:00.000Z"
+    },
+    {
+      "id": 3,
+      "usuarioId": 2,
+      "eventoId": 4,
+      "palpite": "empate",
+      "valor": 60,
+      "status": "pendente",
+      "retorno": 0,
+      "data": "2026-06-16T13:20:00.000Z"
+    }
+  ],
+  "movimentacoes": [
+    {
+      "id": 1,
+      "usuarioId": 2,
+      "tipo": "debito",
+      "descricao": "Aposta em Atlética Norte x Atlética Sul",
+      "valor": -100,
+      "data": "2026-06-11T15:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "usuarioId": 2,
+      "tipo": "premio",
+      "descricao": "Prêmio fictício por palpite vencedor",
+      "valor": 190,
+      "data": "2026-06-12T22:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "usuarioId": 3,
+      "tipo": "bonus",
+      "descricao": "Bônus acadêmico de boas-vindas",
+      "valor": 150,
+      "data": "2026-06-10T10:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "usuarioId": 2,
+      "tipo": "debito",
+      "descricao": "Aposta em Engenharia x Direito",
+      "valor": -60,
+      "data": "2026-06-16T13:20:00.000Z"
+    }
+  ]
+}
