@@ -594,15 +594,20 @@ th {
   min-height: 72px;
 }
 
-.rank-position {
-  display: inline-grid;
+.ranking-row .rank-position {
+  display: inline-flex;
+  flex: 0 0 40px;
   width: 40px;
   height: 40px;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
   background: var(--accent-strong);
-  color: #052e2b;
+  color: #ffffff;
+  font-size: 1rem;
   font-weight: 900;
+  line-height: 1;
+  text-align: center;
 }
 
 @media (max-width: 980px) {
