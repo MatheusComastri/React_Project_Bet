@@ -3,12 +3,12 @@ import { useAuth } from '../context/AuthContext'
 import { toCurrency } from '../services/api'
 
 const adminLinks = [
-  { to: '/admin', label: 'Resumo' },
+  { to: '/admin', label: 'Resumo', end: true },
   { to: '/admin/eventos', label: 'Eventos' },
 ]
 
 const usuarioLinks = [
-  { to: '/usuario', label: 'Resumo' },
+  { to: '/usuario', label: 'Resumo', end: true },
   { to: '/usuario/eventos', label: 'Apostar' },
   { to: '/usuario/historico', label: 'Histórico' },
   { to: '/usuario/carteira', label: 'Carteira' },
@@ -35,6 +35,7 @@ export default function AppLayout() {
             <NavLink
               key={link.to}
               to={link.to}
+              end={link.end}
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
               {link.label}
