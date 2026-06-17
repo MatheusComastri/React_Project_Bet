@@ -8,6 +8,7 @@ import {
   formatDate,
   getOddByPalpite,
   getPalpiteLabel,
+  sameId,
   toCurrency,
 } from '../services/api'
 
@@ -23,11 +24,13 @@ export default function EventosDisponiveis() {
   const loadData = useCallback(async () => {
     const [eventosResponse, apostasResponse] = await Promise.all([
       api.get('/eventos'),
-      api.get('/apostas', { params: { usuarioId: usuario.id } }),
+      api.get('/apostas'),
     ])
 
     setEventos(eventosResponse.data)
-    setApostas(apostasResponse.data)
+    setApostas(
+      apostasResponse.data.filter((aposta) => sameId(aposta.usuarioId, usuario.id)),
+    )
     setLoading(false)
   }, [usuario.id])
 
@@ -64,7 +67,9 @@ export default function EventosDisponiveis() {
   const apostar = async (evento) => {
     const form = forms[evento.id] || { palpite: 'casa', valor: '' }
     const valor = Number(form.valor)
-    const apostaExistente = apostas.find((aposta) => aposta.eventoId === evento.id)
+    const apostaExistente = apostas.find((aposta) =>
+      sameId(aposta.eventoId, evento.id),
+    )
 
     setMessage('')
 
@@ -156,7 +161,9 @@ export default function EventosDisponiveis() {
             const form = forms[evento.id] || { palpite: 'casa', valor: '' }
             const retornoEstimado =
               Number(form.valor || 0) * getOddByPalpite(evento, form.palpite)
-            const jaApostou = apostas.some((aposta) => aposta.eventoId === evento.id)
+            const jaApostou = apostas.some((aposta) =>
+              sameId(aposta.eventoId, evento.id),
+            )
 
             return (
               <article className="event-card bet-card" key={evento.id}>

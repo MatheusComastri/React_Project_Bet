@@ -41,5 +41,7 @@ export const getOddByPalpite = (evento, palpite) => {
   return odds[palpite] || 1
 }
 
+export const sameId = (left, right) => String(left) === String(right)
+
 export const sortByNewest = (items, field = 'data') =>
   [...items].sort((a, b) => new Date(b[field]) - new Date(a[field]))

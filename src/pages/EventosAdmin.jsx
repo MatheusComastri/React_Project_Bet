@@ -7,6 +7,7 @@ import {
   formatDate,
   getOddByPalpite,
   getPalpiteLabel,
+  sameId,
   toCurrency,
 } from '../services/api'
 
@@ -95,7 +96,9 @@ export default function EventosAdmin() {
     }
 
     setMessage('')
-    const apostasDoEvento = apostas.filter((aposta) => aposta.eventoId === evento.id)
+        const apostasDoEvento = apostas.filter((aposta) =>
+          sameId(aposta.eventoId, evento.id),
+        )
 
     await Promise.all(
       apostasDoEvento.map(async (aposta) => {
@@ -110,7 +113,7 @@ export default function EventosAdmin() {
         })
 
         if (ganhou) {
-          const usuario = usuarios.find((item) => item.id === aposta.usuarioId)
+          const usuario = usuarios.find((item) => sameId(item.id, aposta.usuarioId))
           if (usuario) {
             await api.patch(`/usuarios/${usuario.id}`, {
               saldo: Number((Number(usuario.saldo) + retorno).toFixed(2)),
@@ -271,7 +274,7 @@ export default function EventosAdmin() {
             <div className="event-list">
               {eventosOrdenados.map((evento) => {
                 const apostasDoEvento = apostas.filter(
-                  (aposta) => aposta.eventoId === evento.id,
+                  (aposta) => sameId(aposta.eventoId, evento.id),
                 )
                 const total = apostasDoEvento.reduce(
                   (sum, aposta) => sum + Number(aposta.valor),

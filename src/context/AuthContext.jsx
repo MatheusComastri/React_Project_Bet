@@ -23,10 +23,10 @@ export function AuthProvider({ children }) {
   const login = async (email, senha) => {
     setLoading(true)
     try {
-      const { data } = await api.get('/usuarios', {
-        params: { email, senha },
-      })
-      const encontrado = data[0]
+      const { data } = await api.get('/usuarios')
+      const encontrado = data.find(
+        (user) => user.email === email && user.senha === senha,
+      )
 
       if (!encontrado) {
         throw new Error('E-mail ou senha inválidos.')

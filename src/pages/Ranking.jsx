@@ -9,14 +9,16 @@ export default function Ranking() {
 
   useEffect(() => {
     async function loadData() {
-      const { data } = await api.get('/usuarios', { params: { perfil: 'usuario' } })
+      const { data } = await api.get('/usuarios')
       setJogadores(
-        data.sort((a, b) => {
-          if (Number(b.pontos || 0) === Number(a.pontos || 0)) {
-            return Number(b.saldo || 0) - Number(a.saldo || 0)
-          }
-          return Number(b.pontos || 0) - Number(a.pontos || 0)
-        }),
+        data
+          .filter((usuario) => usuario.perfil === 'usuario')
+          .sort((a, b) => {
+            if (Number(b.pontos || 0) === Number(a.pontos || 0)) {
+              return Number(b.saldo || 0) - Number(a.saldo || 0)
+            }
+            return Number(b.pontos || 0) - Number(a.pontos || 0)
+          }),
       )
       setLoading(false)
     }

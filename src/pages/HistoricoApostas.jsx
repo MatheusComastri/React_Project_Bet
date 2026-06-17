@@ -7,6 +7,7 @@ import {
   api,
   formatDate,
   getPalpiteLabel,
+  sameId,
   sortByNewest,
   toCurrency,
 } from '../services/api'
@@ -22,11 +23,13 @@ export default function HistoricoApostas() {
     async function loadData() {
       const [eventosResponse, apostasResponse] = await Promise.all([
         api.get('/eventos'),
-        api.get('/apostas', { params: { usuarioId: usuario.id } }),
+        api.get('/apostas'),
       ])
 
       setEventos(eventosResponse.data)
-      setApostas(apostasResponse.data)
+      setApostas(
+        apostasResponse.data.filter((aposta) => sameId(aposta.usuarioId, usuario.id)),
+      )
       setLoading(false)
     }
 
@@ -82,7 +85,9 @@ export default function HistoricoApostas() {
               </thead>
               <tbody>
                 {apostasFiltradas.map((aposta) => {
-                  const evento = eventos.find((item) => item.id === aposta.eventoId)
+                  const evento = eventos.find((item) =>
+                    sameId(item.id, aposta.eventoId),
+                  )
 
                   return (
                     <tr key={aposta.id}>

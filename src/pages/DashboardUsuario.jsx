@@ -9,6 +9,7 @@ import {
   api,
   formatDate,
   getPalpiteLabel,
+  sameId,
   sortByNewest,
   toCurrency,
 } from '../services/api'
@@ -23,15 +24,17 @@ export default function DashboardUsuario() {
   useEffect(() => {
     async function loadData() {
       const [eventosResponse, apostasResponse, movimentacoesResponse] =
-        await Promise.all([
-          api.get('/eventos'),
-          api.get('/apostas', { params: { usuarioId: usuario.id } }),
-          api.get('/movimentacoes', { params: { usuarioId: usuario.id } }),
-        ])
+        await Promise.all([api.get('/eventos'), api.get('/apostas'), api.get('/movimentacoes')])
 
       setEventos(eventosResponse.data)
-      setApostas(apostasResponse.data)
-      setMovimentacoes(movimentacoesResponse.data)
+      setApostas(
+        apostasResponse.data.filter((aposta) => sameId(aposta.usuarioId, usuario.id)),
+      )
+      setMovimentacoes(
+        movimentacoesResponse.data.filter((movimentacao) =>
+          sameId(movimentacao.usuarioId, usuario.id),
+        ),
+      )
       setLoading(false)
     }
 
@@ -98,7 +101,7 @@ export default function DashboardUsuario() {
           ) : (
             <div className="activity-list">
               {ultimasApostas.map((aposta) => {
-                const evento = eventos.find((item) => item.id === aposta.eventoId)
+                const evento = eventos.find((item) => sameId(item.id, aposta.eventoId))
 
                 return (
                   <div className="activity-item" key={aposta.id}>

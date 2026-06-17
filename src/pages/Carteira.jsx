@@ -3,7 +3,7 @@ import EmptyState from '../components/EmptyState'
 import PageHeader from '../components/PageHeader'
 import StatCard from '../components/StatCard'
 import { useAuth } from '../context/AuthContext'
-import { api, formatDate, sortByNewest, toCurrency } from '../services/api'
+import { api, formatDate, sameId, sortByNewest, toCurrency } from '../services/api'
 
 const BONUS_VALUE = 150
 
@@ -14,10 +14,10 @@ export default function Carteira() {
   const [loading, setLoading] = useState(true)
 
   const loadData = useCallback(async () => {
-    const { data } = await api.get('/movimentacoes', {
-      params: { usuarioId: usuario.id },
-    })
-    setMovimentacoes(data)
+    const { data } = await api.get('/movimentacoes')
+    setMovimentacoes(
+      data.filter((movimentacao) => sameId(movimentacao.usuarioId, usuario.id)),
+    )
     setLoading(false)
   }, [usuario.id])
 

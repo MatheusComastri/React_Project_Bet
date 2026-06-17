@@ -4,7 +4,13 @@ import EmptyState from '../components/EmptyState'
 import EventBadge from '../components/EventBadge'
 import PageHeader from '../components/PageHeader'
 import StatCard from '../components/StatCard'
-import { api, formatDate, getPalpiteLabel, toCurrency } from '../services/api'
+import {
+  api,
+  formatDate,
+  getPalpiteLabel,
+  sameId,
+  toCurrency,
+} from '../services/api'
 
 export default function DashboardAdmin() {
   const [eventos, setEventos] = useState([])
@@ -133,8 +139,8 @@ export default function DashboardAdmin() {
           ) : (
             <div className="activity-list">
               {apostasRecentes.map((aposta) => {
-                const evento = eventos.find((item) => item.id === aposta.eventoId)
-                const jogador = usuarios.find((item) => item.id === aposta.usuarioId)
+                const evento = eventos.find((item) => sameId(item.id, aposta.eventoId))
+                const jogador = usuarios.find((item) => sameId(item.id, aposta.usuarioId))
 
                 return (
                   <div key={aposta.id} className="activity-item">
